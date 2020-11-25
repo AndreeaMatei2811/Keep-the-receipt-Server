@@ -5,11 +5,11 @@ const Product = require("../models").product;
 
 const router = new Router();
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", auth, async (req, res, next) => {
   try {
-      const userFromId = parseInt(req.params.id)
+    const userFromId = parseInt(req.params.id);
     const categories = await Category.findAll({
-        where: { userFromId = userId},
+      where: { userId: userFromId },
       include: [Product],
     });
     res.json(categories);
