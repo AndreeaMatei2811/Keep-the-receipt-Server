@@ -4,6 +4,8 @@ const app = express();
 const { PORT } = require("./config/constants");
 const corsMiddleWare = require("cors");
 const loggerMiddleWare = require("morgan");
+const authRouter = require("./routers/auth");
+// const authMiddleWare = require("./auth/middleware");
 
 app.use(loggerMiddleWare("dev"));
 
@@ -19,5 +21,7 @@ if (process.env.DELAY) {
 }
 
 // app.use(express.json());
+
+app.use("/", authRouter);
 
 app.listen(PORT, () => console.log(`Server started in port: ${PORT}`));
