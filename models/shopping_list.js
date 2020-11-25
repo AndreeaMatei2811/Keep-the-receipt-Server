@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       shopping_list.belongsTo(models.category);
-      shopping_list.hasMany(models.shopping_item);
+      shopping_list.belongsToMany(models.product, {
+        through: "shopping_item",
+        foreignKey: "shoppingListId",
+      });
     }
   }
   shopping_list.init(

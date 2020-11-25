@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   tip.init(
     {
-      title: { tupe: DataTypes.STRING, allowNull: false },
+      title: { type: DataTypes.STRING, allowNull: false },
       description: DataTypes.STRING,
       link: DataTypes.STRING,
       picture: DataTypes.STRING,

@@ -9,9 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       category.belongsTo(models.user);
+      category.hasMany(models.product);
+
       category.hasOne(models.shopping_list);
       category.hasOne(models.budget);
-      category.hasMany(models.product);
     }
   }
   category.init(

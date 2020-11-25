@@ -3,6 +3,7 @@ module.exports = {
   development: {
     url: process.env.ELEPHANT_SQL, // and use the env vars to get the url
     dialect: "postgres",
+    operatorsAliases: "0",
   },
   test: {
     username: "root",
