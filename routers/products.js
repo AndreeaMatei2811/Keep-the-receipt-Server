@@ -41,6 +41,7 @@ router.post("/:id/:categoryId/newProduct", auth, async (req, res) => {
     lastBought,
     quantity,
   });
+  console.log("what is new product", newProduct);
 
   return res.status(201).send({ message: "Product created", newProduct });
 });
