@@ -25,7 +25,7 @@ router.post("/:id/newCategory", auth, async (req, res) => {
   if (!findUser.userId === req.user.id) {
     return res
       .status(403)
-      .send({ message: "You are not authorized to make reservation" });
+      .send({ message: "You are not authorized to create new category" });
   }
   const { name, color } = req.body;
 
@@ -37,5 +37,30 @@ router.post("/:id/newCategory", auth, async (req, res) => {
 
   return res.status(201).send({ message: "Category created", newCategory });
 });
+
+router.delete(
+  "/:id/deleteCategory/:categoryId",
+  auth,
+  async (req, res, next) => {
+    try {
+      const findUser = await User.findByPk(req.params.id);
+
+      if (!findUser.userId === req.user.id) {
+        return res
+          .status(403)
+          .send({ message: "You are not authorized to delete category" });
+      }
+      const categoryToDelete = await Category.findByPk(req.params.categoryId);
+
+      const deletedCategory = await categoryToDelete.destroy();
+      res.json(deletedCategory);
+    } catch (e) {
+      next(e);
+    }
+    return res
+      .status(201)
+      .send({ message: "Category deleted", deletedCategory });
+  }
+);
 
 module.exports = router;
