@@ -32,7 +32,7 @@ async function productsWithCategory() {
 
 async function categoriesWithProducts() {
   try {
-    const categories = await category.findAll({
+    const categories = await shopping_item.findAll({
       include: [shopping_list],
     });
     return categories.map((category) => category.get({ plain: true }));
