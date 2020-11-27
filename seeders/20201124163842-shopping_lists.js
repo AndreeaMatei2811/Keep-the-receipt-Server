@@ -6,14 +6,12 @@ module.exports = {
       "shopping_lists",
       [
         {
-          name: "",
-          categoryId: 1,
+          userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: "",
-          categoryId: 3,
+          userId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

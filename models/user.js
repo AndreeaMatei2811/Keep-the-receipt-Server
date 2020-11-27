@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       user.hasMany(models.category);
       user.hasMany(models.tip);
+      user.hasOne(models.shopping_list);
+      user.hasOne(models.budget);
+      user.hasMany(models.product);
     }
   }
   user.init(

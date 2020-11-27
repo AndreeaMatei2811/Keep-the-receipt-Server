@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      shopping_list.belongsTo(models.category);
+      shopping_list.belongsTo(models.user);
       shopping_list.belongsToMany(models.product, {
         through: "shopping_item",
         foreignKey: "shoppingListId",
@@ -18,8 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   shopping_list.init(
     {
-      name: DataTypes.STRING,
-      categoryId: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
