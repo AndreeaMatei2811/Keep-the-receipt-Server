@@ -18,22 +18,22 @@ async function productsWithCategory() {
 }
 // productsWithCategory().then((products) => console.log(products));
 
-// async function categoriesWithProducts() {
-//   try {
-//     const categories = await category.findAll({
-//       include: [product],
-//     });
-//     return categories;
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }
+async function categoriesWithProducts() {
+  try {
+    const categories = await category.findAll({
+      include: [product],
+    });
+    return categories;
+  } catch (e) {
+    console.error(e);
+  }
+}
 // categoriesWithProducts().then((categories) => console.log(categories));
 
 async function categoriesWithProducts() {
   try {
-    const categories = await category.findAll({
-      include: [shopping_list],
+    const categories = await shopping_list.findAll({
+      include: [product],
     });
     return categories.map((category) => category.get({ plain: true }));
   } catch (e) {

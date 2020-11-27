@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       product.belongsTo(models.category);
+      product.belongsTo(models.user);
       product.belongsToMany(models.shopping_list, {
         through: "shopping_item",
         foreignKey: "productId",
@@ -25,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       quantity: DataTypes.INTEGER,
       lastBought: DataTypes.DATE,
       categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       budget.belongsTo(models.category);
+      budget.belongsTo(models.user);
     }
   }
   budget.init(
@@ -18,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       differenceBudget: DataTypes.INTEGER,
       month: DataTypes.DATEONLY,
       categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

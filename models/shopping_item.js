@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   shopping_item.init(
     {
-      quantity: DataTypes.INTEGER,
+      shoppingQuantity: DataTypes.INTEGER,
       productId: {
         type: DataTypes.INTEGER,
         allowNull: false,
