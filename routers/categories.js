@@ -8,10 +8,10 @@ const router = new Router();
 
 router.get("/:id", auth, async (req, res, next) => {
   try {
-    const userFromId = parseInt(req.params.id);
+    const findUser = await User.findByPk(req.params.id);
 
     const categories = await Category.findAll({
-      where: { userId: userFromId },
+      where: { userId: findUser.id },
     });
     res.json(categories);
   } catch (e) {

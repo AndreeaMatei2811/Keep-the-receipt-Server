@@ -7,13 +7,12 @@ const ShoppingItem = require("../models").shopping_item;
 
 const router = new Router();
 
-router.get("/", auth, async (req, res, next) => {
+router.get("/:id", auth, async (req, res, next) => {
   try {
-    // const categoryFromId = parseInt(req.params.categoryId);
-    // console.log("what is category id", categoryFromId);
+    const findUser = await User.findByPk(req.params.id);
 
     const products = await Product.findAll({
-      // where: { categoryId: categoryFromId },
+      where: { userId: findUser.id },
     });
     res.json(products);
     console.log(products);
@@ -31,16 +30,16 @@ router.post("/:id/:categoryId/newProduct", auth, async (req, res) => {
       .status(403)
       .send({ message: "You are not authorized to create new product" });
   }
-  const { name, store, price, unit, lastBought, quantity } = req.body;
+  const { name, store, priceInEuro, unit, quantity } = req.body;
 
   const newProduct = await Product.create({
     categoryId: findCategory.id,
+    userId: findUser.id,
     name,
     store,
-    price,
+    priceInEuro,
     unit,
-    lastBought,
-    quantity,
+    quantity: quantity ? quantity : 1,
   });
   console.log("what is new product", newProduct);
 
