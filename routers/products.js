@@ -13,6 +13,7 @@ router.get("/:id", auth, async (req, res, next) => {
 
     const products = await Product.findAll({
       where: { userId: findUser.id },
+      order: [["name", "ASC"]],
     });
     res.json(products);
     console.log(products);
@@ -70,11 +71,11 @@ router.patch("/:productId/decrease", auth, async (req, res, next) => {
   try {
     productToDecrease = await Product.findByPk(req.params.productId);
 
-    const decreasedQuantity = productToDecrease.quantity - 1;
+    // const decreasedQuantity = productToDecrease.quantity - 1;
     const { quantity } = req.body;
 
     const decreasedProduct = await productToDecrease.update({
-      quantity: decreasedQuantity,
+      quantity: quantity,
     });
     res.json(decreasedProduct);
   } catch (e) {
@@ -87,12 +88,12 @@ router.patch("/:productId/increase", auth, async (req, res, next) => {
   try {
     productToIncrease = await Product.findByPk(req.params.productId);
 
-    const increasedQuantity = productToIncrease.quantity + 1;
+    // const increasedQuantity = productToIncrease.quantity + 1;
 
     const { quantity } = req.body;
 
     const increasedProduct = await productToIncrease.update({
-      quantity: increasedQuantity,
+      quantity: quantity,
     });
     res.json(increasedProduct);
   } catch (e) {

@@ -7,7 +7,7 @@ const ShoppingItem = require("../models").shopping_item;
 
 const router = new Router();
 
-router.get("/:", auth, async (req, res, next) => {
+router.get("/", auth, async (req, res, next) => {
   try {
     const shoppingItems = await ShoppingItem.findAll();
     res.json(shoppingItems);
@@ -32,13 +32,16 @@ router.post("/:id/addProduct", auth, async (req, res) => {
     productId: productId,
     shoppingQuantity: 1,
   });
-
-  return res
-    .status(201)
-    .send({
-      message: `${findProduct.name} added to shopping list!`,
-      addedProduct,
-    });
+  // if (ShoppingItem.productId === findProduct.id) {
+  //   return res.status(400).send({
+  //     message: `${findProduct.name} already in to shopping list!`,
+  //   });
+  // } else {
+  return res.status(201).send({
+    message: `${findProduct.name} added to shopping list!`,
+    addedProduct,
+  });
+  // }
 });
 
 module.exports = router;

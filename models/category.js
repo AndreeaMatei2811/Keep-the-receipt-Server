@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
       category.belongsTo(models.user);
       category.hasMany(models.product);
 
-      category.hasOne(models.shopping_list);
       category.hasOne(models.budget);
     }
   }
