@@ -27,21 +27,40 @@ router.post("/:id/addProduct", auth, async (req, res) => {
   const { productId, shoppingListId, shoppingQuantity } = req.body;
   const findProduct = await Product.findByPk(productId);
 
-  const addedProduct = await ShoppingItem.create({
-    shoppingListId: findUser.id,
-    productId: productId,
-    shoppingQuantity: 1,
+  // const addedProduct = await ShoppingItem.create({
+  //   shoppingListId: findUser.id,
+  //   productId: productId,
+  //   shoppingQuantity: 1,
+  // });
+  // return res.status(201).send({
+  //   message: `${findProduct.name} added to shopping list!`,
+  //   addedProduct,
+  // });
+
+  const shoppingItem = await ShoppingItem.findAll();
+  console.log("do I", shoppingItem);
+
+  const productsIdShopping = shoppingItem.map((item) => {
+    return item.productId;
   });
-  // if (ShoppingItem.productId === findProduct.id) {
-  //   return res.status(400).send({
-  //     message: `${findProduct.name} already in to shopping list!`,
-  //   });
-  // } else {
-  return res.status(201).send({
-    message: `${findProduct.name} added to shopping list!`,
-    addedProduct,
-  });
-  // }
+
+  console.log("do I productsIdShopping", productsIdShopping);
+
+  if (productsIdShopping.includes(findProduct.id)) {
+    return res.status(200).send({
+      message: `${findProduct.name} already in to shopping list!`,
+    });
+  } else {
+    const addedProduct = await ShoppingItem.create({
+      shoppingListId: findUser.id,
+      productId: productId,
+      shoppingQuantity: 1,
+    });
+    return res.status(201).send({
+      message: `${findProduct.name} added to shopping list!`,
+      addedProduct,
+    });
+  }
 });
 
 module.exports = router;
