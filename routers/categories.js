@@ -12,6 +12,7 @@ router.get("/:id", auth, async (req, res, next) => {
 
     const categories = await Category.findAll({
       where: { userId: findUser.id },
+      order: [["name", "ASC"]],
     });
     res.json(categories);
   } catch (e) {

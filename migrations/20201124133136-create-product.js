@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       priceInEuro: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       unit: {
         type: Sequelize.STRING,
