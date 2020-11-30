@@ -3,6 +3,7 @@ const { Router } = require("express");
 const { toJWT } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const User = require("../models/").user;
+const ShoppingList = require("../models").shopping_list;
 const { SALT_ROUNDS } = require("../config/constants");
 
 const router = new Router();
@@ -48,6 +49,11 @@ router.post("/signup", async (req, res) => {
       password: bcrypt.hashSync(password, SALT_ROUNDS),
       name,
     });
+
+    const shoppingListData = {
+      userId: newUser.id,
+    };
+    const newShoppingList = await ShoppingList.create(shoppingListData);
 
     delete newUser.dataValues["password"]; // don't send back the password hash
 

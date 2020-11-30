@@ -27,16 +27,6 @@ router.post("/:id/addProduct", auth, async (req, res) => {
   const { productId, shoppingListId, shoppingQuantity } = req.body;
   const findProduct = await Product.findByPk(productId);
 
-  // const addedProduct = await ShoppingItem.create({
-  //   shoppingListId: findUser.id,
-  //   productId: productId,
-  //   shoppingQuantity: 1,
-  // });
-  // return res.status(201).send({
-  //   message: `${findProduct.name} added to shopping list!`,
-  //   addedProduct,
-  // });
-
   const shoppingItem = await ShoppingItem.findAll();
   console.log("do I", shoppingItem);
 
@@ -61,6 +51,32 @@ router.post("/:id/addProduct", auth, async (req, res) => {
       addedProduct,
     });
   }
+});
+
+router.delete("/:id/checkProduct/:productId", auth, async (req, res, next) => {
+  try {
+    const findUser = await User.findByPk(req.params.id);
+    const findProduct = await Product.findByPk(req.params.productId);
+
+    if (!findUser.userId === req.user.id) {
+      return res
+        .status(403)
+        .send({ message: "You are not authorized to check products" });
+    }
+
+    const shoppingItem = await ShoppingItem.findAll();
+
+    const itemToCheck = await shoppingItem.find((item) => {
+      return item.productId === findProduct.id;
+    });
+    console.log("item to check", itemToCheck);
+
+    const checkItem = await itemToCheck.destroy();
+    res.json(checkItem);
+  } catch (e) {
+    next(e);
+  }
+  return res.status(201).send({ message: "Product checked", checkItem });
 });
 
 module.exports = router;
