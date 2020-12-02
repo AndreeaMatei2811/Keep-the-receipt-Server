@@ -32,13 +32,16 @@ router.post("/:id/:categoryId/newProduct", auth, async (req, res) => {
       .send({ message: "You are not authorized to create new product" });
   }
   const { name, store, priceInEuro, unit, quantity } = req.body;
+  if (!name) {
+    return res.status(400).send("Please give the product a name");
+  }
 
   const newProduct = await Product.create({
     categoryId: findCategory.id,
     userId: findUser.id,
     name,
-    store,
-    priceInEuro,
+    store: store ? store : "don't know yet",
+    priceInEuro: priceInEuro ? priceInEuro : 0,
     unit,
     quantity: quantity ? quantity : 1,
   });
@@ -64,7 +67,7 @@ router.delete("/:id/deleteProduct/:productId", auth, async (req, res, next) => {
   } catch (e) {
     next(e);
   }
-  return res.status(201).send({ message: "Category deleted", deletedProduct });
+  return res.status(201).send({ message: "Product deleted", deletedProduct });
 });
 
 router.patch("/:productId/decrease", auth, async (req, res, next) => {

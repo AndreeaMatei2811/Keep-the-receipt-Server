@@ -29,6 +29,9 @@ router.post("/:id/newCategory", auth, async (req, res) => {
       .send({ message: "You are not authorized to create new category" });
   }
   const { name, color } = req.body;
+  if (!name) {
+    return res.status(400).send({ message: "Please give the category a name" });
+  }
 
   const newCategory = await Category.create({
     userId: findUser.id,

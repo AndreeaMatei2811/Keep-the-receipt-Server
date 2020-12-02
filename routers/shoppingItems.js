@@ -76,7 +76,7 @@ router.delete("/:id/checkProduct/:productId", auth, async (req, res, next) => {
   } catch (e) {
     next(e);
   }
-  return res.status(201).send({ message: "Product checked", checkItem });
+  return res.status(201).send({ message: "Product checked", findProduct });
 });
 
 module.exports = router;
