@@ -14,5 +14,7 @@ module.exports = {
   },
   production: {
     use_evn_variable: "DATABASE_URL",
+
+    dialect: "postgres",
   },
 };
