@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   // just for pushing - ignore comment
+  // just for pushing - ignore comment
   budget.init(
     {
       setBudget: DataTypes.INTEGER,
