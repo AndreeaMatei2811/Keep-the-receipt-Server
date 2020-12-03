@@ -11,12 +11,12 @@ const shoppingItemsRouter = require("./routers/shoppingItems");
 const shoppingListsRouter = require("./routers/shoppingLists");
 // const authMiddleWare = require("./auth/middleware");
 
+app.use(corsMiddleWare());
+
 app.use(loggerMiddleWare("dev"));
 
 const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
-
-app.use(corsMiddleWare());
 
 if (process.env.DELAY) {
   app.use((req, res, next) => {
