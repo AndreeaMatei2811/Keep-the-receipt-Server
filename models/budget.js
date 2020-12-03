@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       budget.belongsTo(models.user);
     }
   }
+  // just for pushing - ignore comment
   budget.init(
     {
       setBudget: DataTypes.INTEGER,
